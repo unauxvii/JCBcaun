@@ -1,0 +1,1 @@
+Hiya! This is my first website that gets launch in public or GitHub. it's merely a project for Computing Fundementals in the college I'm currently studying it.  The basic concept here is a Portfolio website, for now it's stiff under development since our proessor says we will eventually develop it even more later on :)
