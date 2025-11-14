@@ -794,7 +794,7 @@
     max-width: 1100px;       /* ensures it doesn't get too huge on large screens */
     margin: 0 auto;          /* centers it */
   }
-  /* Global list styling in the education page */
+  /* Global list styling in the education page */ 
   .single-education-card ul {
     margin-top: 8px;
     margin-bottom: 8px;
