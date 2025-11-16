@@ -807,3 +807,20 @@
     margin-bottom: 4px;     /* small gap between bullet lines */
     line-height: 1.6;
   }
+/* Make all text inside the single-education card slightly smaller */
+.single-education-card,
+.single-education-card p,
+.single-education-card ul,
+.single-education-card li,
+.single-education-card h3,
+.single-education-card .meta {
+  font-size: 0.9rem; /* or tweak between 0.85rem–0.95rem depending on preference */
+  line-height: 1.5;  /* slightly tighter for smaller font */
+}
+
+/* Optional: scale headers slightly smaller */
+.single-education-card h3 {
+  font-size: 1.1rem; /* down from 1.25rem */
+}
+
+
