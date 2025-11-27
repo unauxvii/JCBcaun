@@ -98,7 +98,7 @@ p, li { font-size: 1rem; line-height: 1.6; }
 /* ==========================
    CARDS BASE
 ========================== */
-.card, .about-card, .single-education-card, .extra-entry, .interests-card, .family-card {
+.card, .about-card, .single-education-card,.interests-card, .family-card {
   background: rgba(22,20,31,0.9);
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 0 12px rgba(255,0,55,0.15);
@@ -111,7 +111,7 @@ p, li { font-size: 1rem; line-height: 1.6; }
   transition: 0.25s;
 }
 
-.card:hover, .extra-entry:hover, .interests-card:hover {
+.card:hover,.interests-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255,0,78,0.2);
 }
@@ -380,8 +380,6 @@ p, li { font-size: 1rem; line-height: 1.6; }
     border-radius: 16px;
     border: 1px solid rgba(255,255,255,0.1);
     background: rgba(22,20,31,0.9);
-    opacity: 0;
-    animation: popUp 1.2s ease forwards 0.3s;
     transition: 0.25s;
 }
 
@@ -417,4 +415,102 @@ p, li { font-size: 1rem; line-height: 1.6; }
 #education-card h2,
 #extra-curricular-card h2 {
     margin-top: 40px;  /* adjust this value as needed */
+}
+
+.batch-card img {
+    width: 200px; /* adjust as needed */
+    height: auto;
+    border-radius: 8px;
+}
+
+/* ==========================
+   BATCHMATES PAGE LAYOUT
+========================== */
+
+/* Wrapper for the whole page */
+.batch-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 50px 40px; /* space from nav bar */
+    gap: 20px;
+    min-height: 100px;
+}
+
+/* Intro Card */
+.batch-card.about-card {
+    background: rgba(22,20,31,0.9);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 12px rgba(255,0,55,0.15);
+    border-radius: 16px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px; /* allow bigger cards for desktop */
+    text-align: center;
+    color: #fff;
+}
+
+/* Batchmate image inside the intro card */
+.batch-card.about-card img {
+    width: 100%;      /* image fills card width */
+    max-width: 2800px; /* limit max size */
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-top: 16px;
+    box-shadow: 0 4px 12px rgba(255,0,78,0.2);
+    transition: 0.25s;
+}
+
+.batch-card.about-card img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 16px rgba(255,0,78,0.3);
+}
+
+/* Floating previous button */
+.floating-btns-wrapper {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 16px;
+    z-index: 9999;
+}
+
+.floating-btn.prev-btn {
+    padding: 14px 22px;
+    background: #ff1160;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 28px;
+    box-shadow: 0 6px 14px rgba(255,17,96,0.35);
+    text-align: center;
+    transition: 0.25s ease;
+}
+
+.floating-btn.prev-btn:hover {
+    background: #ff2a78;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(255,17,96,0.45);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .batch-card.about-card img {
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 900px) {
+    .batch-card.about-card img {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .batch-card.about-card img {
+        max-width: 100%;
+    }
 }
