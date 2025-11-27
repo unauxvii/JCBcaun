@@ -448,18 +448,20 @@ p, li { font-size: 1rem; line-height: 1.6; }
     max-width: 1200px; /* allow bigger cards for desktop */
     text-align: center;
     color: #fff;
+    overflow: hidden; /* stops inner scroll */
 }
 
 /* Batchmate image inside the intro card */
 .batch-card.about-card img {
     width: 100%;      /* image fills card width */
-    max-width: 2800px; /* limit max size */
+    max-width: 2600px; /* limit max size */
     height: auto;
     border-radius: 12px;
     object-fit: cover;
     margin-top: 16px;
     box-shadow: 0 4px 12px rgba(255,0,78,0.2);
     transition: 0.25s;
+    
 }
 
 .batch-card.about-card img:hover {
@@ -513,4 +515,18 @@ p, li { font-size: 1rem; line-height: 1.6; }
     .batch-card.about-card img {
         max-width: 100%;
     }
+}
+
+
+/* ==========================
+   FREEZE WHOLE PAGE SCROLL
+========================== */
+body {
+    overflow: hidden; /* freezes page scroll */
+}
+
+/* Make sure cards expand instead of scrolling */
+.batch-card {
+    overflow: visible; /* card content won’t scroll internally */
+    height: auto;      /* card adjusts to content size */
 }
