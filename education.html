@@ -7,85 +7,62 @@
   <link rel="stylesheet" href="https://unauxvii.github.io/JCBacun/Style.css" />
 </head>
 <body>
-  <div class="top-bar">
+  <!-- TOP BAR -->
+ <div class="top-bar">
     <div class="logo">Johanna Christine C. Bacun</div>
     <nav>
       <a href="index.html"><b>About me</b></a>
       <a href="education.html"><b>Education-Attainment</b></a>
       <a href="extracurricular.html"><b>Extra-Curricular</b></a>
-      <a href="index.html#contact"><b>Contacts</b></a>
+      <a href="myfamily.html"><b>My Family</b></a>
+      <a href="Batchmates.html"><b>My Batchmates</b></a>
     </nav>
   </div>
 
-  <main class="single-education-wrapper">
-    <section class="card single-education-card">
-      <div class="edu-body">
-        <div class="edu-main">
+  <!-- MAIN CONTENT -->
+  <main id="education-page">
+    <section id="education-card" class="single-education-card">
+      <h2>Education Attainments</h2>
 
-          <!-- Education Section -->
-          <h2>Education Attainments</h2>
-
-          <article class="edu-entry">
-            <h3>University of the Cordilleras — BSIT (Web Technology) 2025 — Present</h3>
-            <p>Currently pursuing BSIT Web Technology.</p>
-          </article>
-
-          <article class="edu-entry">
-            <h3>Saint Louis University — Senior High School (STEM) 2023 — 2025</h3>
-            <p>Graduated with STEM strand, focusing on advanced science and mathematics.</p>
-          </article>
-
-          <article class="edu-entry">
-            <h3>Saint Louis College — Junior High School 2017 — 2023</h3>
-            <p>Briefly attended to build fundamental education and ICT skills.</p>
-          </article>
-
-          <article class="edu-entry">
-            <h3>Philippine School Doha — Elementary (Doha, Qatar) 2010 — 2017 </h3>
-            <p>Completed primary and middle years with focus on foundational education and language skills.</p>
-          </article>
-
-          <hr />
-
-          <!-- Achievements Section -->
-          <section class="extra-section">
-            <h2>Achievements & Projects</h2>
-            <ul>
-              <!-- University of the Cordilleras Projects -->
-              <li>Web development: HTML, CSS, JavaScript</li>
-              <li>Projects: Personal portfolio site, small web apps</li>
-              <li>Third Year Capstone: [COMING SOON]</li>
-
-              <!-- Saint Louis University Awards & Projects -->
-              <li>Grade 8: With honors, Bronze</li>
-              <li>Grade 9: With high Honors, Silver</li>
-              <li>Grade 10: With honors, Bronze</li>
-              <li>Research Project: “Perception of Grade 10 Students on Student-Teacher Relationship in Value Formation” — Best Research in English (2023)</li>
-              <li>Grade 12 STEM: Special award (LOUISANS Journalism; video editor)</li>
-              <li>Physics Project: Self-Powering Aquarium</li>
-            </ul>
-          </section>
-
-          <!-- Skills Section -->
-          <section class="extra-section">
-            <h2>Skills & Coursework</h2>
-            <p>Research, academic writing, presentation, HTML/CSS/JS basics, graphic design tools.</p>
-          </section>
-
-          <section class="extra-section">
-            <h2>References & Certificates</h2>
-          </section>
-
-          <p class="back-link"><a href="index.html">← Back to Home</a></p>
-
+      <article class="edu-entry">
+        <img src="uc-logo.png" alt="UC Logo">
+        <div class="edu-text">
+          <h3>University of the Cordilleras — BSIT (Web Technology) 2025 — Present</h3>
+          <p>Currently enrolled in BSIT Web Technology, focusing on development and digital systems.</p>
         </div>
-      </div>
+      </article>
+
+      <article class="edu-entry">
+        <img src="slu-logo.png" alt="Saint Louis University Logo">
+        <div class="edu-text">
+          <h3>Saint Louis University — Senior High School (STEM) 2023 — 2025</h3>
+          <p>Completed STEM strand with concentration in mathematics, science, and academic research.</p>
+        </div>
+      </article>
+
+      <article class="edu-entry">
+        <img src="slc-logo.png" alt="Saint Louis College Logo">
+        <div class="edu-text">
+          <h3>Saint Louis College — Junior High School 2017 — 2023</h3>
+          <p>Strengthened foundational academics and ICT competencies.</p>
+        </div>
+      </article>
+
+      <article class="edu-entry">
+        <img src="psd-logo.png" alt="Philippine School Doha Logo">
+        <div class="edu-text">
+          <h3>Philippine School Doha — Elementary (Doha, Qatar) 2010 — 2017</h3>
+          <p>Completed primary and middle education with focus on core subjects and language skills.</p>
+        </div>
+      </article>
     </section>
   </main>
 
-  <footer style="text-align:center; padding:30px 0; color:#ccc;">
-    © Johanna Christine C. Bacun — Education & Achievements
-  </footer>
+  <!-- Floating Buttons -->
+  <div class="floating-btns-wrapper">
+    <a href="index.html" class="floating-btn prev-btn">← About me</a>
+    <a href="extracurricular.html" class="floating-btn next-btn">Extra-Curricular ➜</a>
+  </div>
+
 </body>
 </html>
-
