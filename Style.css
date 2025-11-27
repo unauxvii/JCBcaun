@@ -1,905 +1,420 @@
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+/* ==========================
+   GOOGLE FONT
+========================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-  }
+/* ==========================
+   GLOBAL RESET & BASE
+========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
-  body {
-    position: relative;
-    min-height: 150vh;
-    color: #fff;
-    overflow-x: hidden;
-    padding-top: 140px;
+html, body {
+  height: 100%;
+  color: #fff;
+  overflow-x: hidden;
+  background-image:
+    linear-gradient(to bottom, rgba(22,20,31,0) 0%, rgba(22,20,31,1) 5%, rgba(22,20,31,1) 80%, rgba(22,20,31,0.95) 88%, rgba(22,20,31,1) 100%),
+    url("BACKGROUNDSTYLE.jpg");
+  background-size: 100% 80vh, 100% 50vh;
+  background-position: center 147px, top center;
+  background-repeat: no-repeat;
+}
 
-    /* layers (first = top):
-      1) white band that fades to transparent at top & bottom
-      2) top banner PNG (fixed height)
-      (BACKGROUNDSTYLE2.png removed from body; now attached to Interests card pseudo) */
-    background-image:
-      linear-gradient(to bottom,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,1) 20%,
-        rgba(255,255,255,1) 80%,
-        rgba(255,255,255,0.95) 88%,
-        rgba(255,255,255,0) 100%),
-      url("BACKGROUNDSTYLE.jpg");
-    background-size:
-      100% 80vh,     /* gradient span */
-      100% 50vh;     /* top banner */
+/* ==========================
+   ANIMATIONS
+========================== */
+@keyframes popUp {
+  0% { opacity: 0; transform: translateY(60px) scale(1.1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-    background-position:
-      center 147px,  /* gradient covers entire area */
-      top center;    /* top PNG banner */
+@keyframes topBarGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    background-repeat: no-repeat, no-repeat;
-    background-attachment: scroll, scroll;
-  }
+/* ==========================
+   TOP NAV BAR
+========================== */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 1000;
+  background: linear-gradient(90deg, rgba(255,17,96,0.85) 0%, rgba(0,0,0,0.6) 50%, rgba(255,17,96,0.85) 100%);
+  background-size: 300% 100%;
+  animation: topBarGradient 10s linear infinite;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
 
+.top-bar .logo { font-size: 1rem; font-weight: 600; }
 
+.top-bar nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 12px;
+  font-weight: 500;
+  font-size: 0.75rem;
+  transition: color 0.3s ease;
+}
 
-  /* CONTAINER */
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    max-width: 1200px;
-    margin: 60px auto 0 auto;
-    gap: 96px;         /* increased gap between cards */
-    flex-wrap: wrap;
-  }
+.top-bar nav a:hover { color: #ff1160; }
 
-  /* EXTRA CARDS (EDUCATION + INTERESTS) */
-  .container.extra-cards {
-    align-items: flex-start;
-  }
+/* ==========================
+   HEADINGS & TEXT
+========================== */
+h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+h2 { font-size: 1.4rem; margin-bottom: 0.4rem; }
+h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+p, li { font-size: 1rem; line-height: 1.6; }
 
-  /* Swap Education and Interests */
-  .container.extra-cards .education-card {
-    order: 1; /* now Interests goes first (left) */
-    flex: 1 1 50%;
-  }
+/* ==========================
+   CONTAINERS / PAGE WRAPPERS
+========================== */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 100px auto 0;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-  .container.extra-cards .interests-card {
-    order: 2; /* Education goes second (right) */
-    flex: 1 1 50%;
-    margin-top: 400px; /* ← push Interests down a bit */
-  }
+/* ==========================
+   CARDS BASE
+========================== */
+.card, .about-card, .single-education-card, .extra-entry, .interests-card, .family-card {
+  background: rgba(22,20,31,0.9);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 12px rgba(255,0,55,0.15);
+  border-radius: 16px;
+  padding: 20px;
+  color: #fff;
+  opacity: 0;
+  animation: popUp 1.2s ease forwards 0.3s;
+  margin-bottom: 16px;
+  transition: 0.25s;
+}
 
-  .container.extra-cards .contacts-card {
-    order: 3; /* Contacts goes last */
-    flex: 1 1 50%;
-    margin-top: 0px; /* ← push Contacts down a bit */
-  }
+.card:hover, .extra-entry:hover, .interests-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255,0,78,0.2);
+}
 
-  /* CARD STYLING */
-  .card {
-    background: rgba(22, 20, 31, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 20px rgba(255, 0, 55, 0.15);
-    border-radius: 20px;
-    padding: 40px;
-    color: #fff;
-    opacity: 0;
-    animation: popUp 1.2s ease forwards 0.3s;
+/* ==========================
+   ABOUT ME
+========================== */
+.container.about-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 100px;
+}
 
-    margin: 12px 0; /* ← vertical spacing between cards */
-    /* optional horizontal spacing on small screens */
-    /* margin-left/right kept to 0 so flex widths behave predictably */
-  }
+.about-card { flex: 1; text-align: left; max-width: 1000px; }
 
-  /* make card body text larger and responsive */
-  .card p,
-  .card ul,
-  .card li,
-  .education-card .edu-main ul li,
-  .about-card .about {
-    font-size: clamp(1rem, 1.2vw + 0.6rem, 1.125rem); /* scales between ~16px and ~18px */
-    line-height: 1.6;
-    color: #eee;
-  }
+.profile-pic {
+  flex: 0 0 300px;
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 6px;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 28%, rgba(255,255,255,0) 70%);
+}
 
-  /* slightly larger card headings */
-  .card h2 {
-    font-size: clamp(1.15rem, 1.4vw + 0.8rem, 1.5rem);
-    margin-bottom: 0.5rem;
-  }
+.profile-pic img { width: 100%; height: auto; max-height: 450px; border-radius: 12px; object-fit: cover; }
 
-  /* INDIVIDUAL CARD SIZES */
-  .about-card {
-    width: 60%;
-  }
-  .education-card,
-  .interests-card {
-    width: 55%;
-  }
-  .contacts-card {
-    margin: 0 auto;
-    text-align: center;
-    flex: 1 1 50%;
-    max-width: 70%; /* just in case */
-    background:none;
-    border: none;
-    box-shadow: none;
-    border-radius: 20px;
-    padding: 40px;
-    color: #000000;
-    opacity: 0;
-    animation: popUp 1.2s ease forwards 0.5s; /* slight delay for stagger */
-  }
-
-
-  /* TOP NAV BAR */
-  .top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    /* slightly transparent animated gradient */
-    background: linear-gradient(
-      90deg,
-      rgba(255,17,96,0.85) 0%,
-      rgba(0,0,0,0.6) 50%,
-      rgba(255,17,96,0.85) 100%
-    );
-    background-size: 300% 100%;
-    animation: topBarGradient 10s linear infinite;
-    color: #fff;
-    padding: 15px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-
-    /* makes the bar translucent and a bit frosted for readability */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-
-  /* slow horizontal slide of gradient */
-  @keyframes topBarGradient {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* Name on the left */
-  .top-bar .logo {
-    font-size: 1.2rem;
-    font-weight: 700;
-  }
-
-  /* Navigation links */
-  .top-bar nav a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 25px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-
-  .top-bar nav a:hover {
-    color: #ff1160; /* highlight color on hover */
-  }
-
-
-  /* PROFILE IMAGE */
-  .profile-pic img {
-    margin-top: 0;
-    margin-bottom: 20px;
-    width: 100%;
-    height: auto;
-    max-height: 820px;
-    border-radius: 8px;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* HEADINGS */
-  .aboutme {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-  }
-
-  .name {
-    font-size: 2rem;
-    font-weight: 700;
-  }
-
-  .title {
-    font-size: 1rem;
-    color: #aaa;
-    margin-bottom: 20px;
-  }
-
-  /* TEXT */
-  .about {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #ddd;
-    margin-bottom: 20px;
-  }
-
-  /* LISTS */
-  .education-card ul {
-    list-style: disc;
-    margin-left: 20px;
-    color: #ddd;
-    line-height: 1.7;
-  }
-
-  /* SKILLS */
-  .skills span {
-    display: inline-block;
-    background: rgba(255, 17, 72, 0.25);
-    border: 1px solid rgba(255, 17, 72, 0.3);
-    border-radius: 20px;
-    padding: 6px 12px;
-    margin: 4px;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-  }
-
-
-
-  .skills span:hover {
-    background: rgba(255, 17, 72, 0.4);
-    transform: scale(1.15) translateY(-4px);
-    box-shadow: 0 4px 15px rgba(255, 17, 72, 0.3);
-  }
-
-  /* Center content in Interests & Skills card */
-  .interests-card {
-    text-align: center; /* centers heading and inline elements */
+/* ==========================
+   EDUCATION WRAPPER
+========================== */
+#education-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center; /* centers everything horizontally */
-    justify-content: center; /* optional: centers vertically if card height allows */
-  }
+    align-items: center;
+    padding: 300px 20px 40px; /* top padding pushed way down */
+    gap: 20px;
+}
 
-  .interests-card .skills {
+#education-card,
+#single-education-card {
+    width: 100%;
+    max-width: 900px; /* keeps cards centered */
+    margin: 0 auto;
+    padding: 30px;
     display: flex;
-    justify-content: center; /* centers skill spans horizontally */
-    flex-wrap: wrap;         /* allows wrapping to next line if needed */
-    gap: 10px;               /* spacing between skill pills */
-  }
+    flex-direction: column;
+    gap: 16px;
+}
 
-  .contacts-card .contacts {
-    margin-top: 20px;
-    width: 67%;
-    text-align: center; /* centers the email */
-    font-size: 0.95rem;
-    color: #000000;
-  }
+/* ==========================
+   EXTRA-CURRICULAR WRAPPER
+========================== */
+#extra-curricular-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 300px 20px 40px; /* top padding pushed way down */
+    gap: 20px;
+}
 
+#extra-curricular-card {
+    width: 100%;
+    max-width: 900px; /* keeps cards centered */
+    margin: 0 auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
 
-  /* EDUCATION CARD SPECIFIC STYLES */
-  .education-card .edu-header {
+/* ==========================
+   EDUCATION / EXTRA ENTRIES HORIZONTAL ALIGN
+========================== */
+.edu-entry,
+.extra-entry {
     display: flex;
     align-items: center;
-    gap: 20px;
-    margin-bottom: 18px; /* space below header */
-  }
-
-  .education-card .edu-header .education-image {
-    width: 120px;        /* image width - adjust as needed */
-    height: 120px;
-    object-fit: cover;
+    gap: 16px;
+    padding: 14px;
     border-radius: 12px;
-    flex-shrink: 0;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  }
-
-  /* title styling inside header (optional tweaks) */
-  .education-card .edu-title h3 {
-    color: #fff;
-    font-size: 1.4rem;
-    margin: 0;
-  }
-  .education-card .edu-title .edu-sub {
-    margin: 4px 0 0;
-    color: #ddd;
-    font-size: 0.9rem;
-  }
-
-  /* EDUCATION CARD BODY */
-  .education-card .edu-body {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start; /* keeps image top-aligned with the heading */
-  }
-
-  .education-card .edu-image {
-    width: 160px;       /* image width (adjust as needed) */
-    height: auto;
-    object-fit: cover;
-    border-radius: 12px;
-    flex-shrink: 0;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  }
-
-  .education-card .edu-main {
-    flex: 1 1 auto;
-  }
-
-  /* keep list styling */
-  .education-card .edu-main ul {
-    margin-top: 12px;
-    list-style: disc;
-    margin-left: 18px;
-    color: #ddd;
-    line-height: 1.7;
-  }
-
-  /* responsive: stack on small screens */
-  @media (max-width: 720px) {
-    .education-card .edu-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .education-card .edu-header .education-image {
-      width: 100%;
-      max-width: 240px;
-      height: auto;
-    }
-    .education-card .edu-body {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-    .education-card .edu-image {
-      width: 100%;
-      max-width: 280px;
-      height: auto;
-    }
-  }
-
-  /* ABOUT SECTION SPECIFIC STYLES */
-  .container.about-section {
-    /* make the about row reach closer to the page edges without affecting extra-cards */
-    width: 96%;
-    max-width: 1400px;
-    margin: 40px auto 0 auto;
-    gap: 40px; /* slightly smaller gap so content stretches more */
-
-    /* keep the about-card and profile on a single row when there's room */
-    flex-wrap: nowrap;
-    align-items: flex-start;
-  }
-
-  /* ensure the about card doesn't use the old fixed 60% width and instead
-    takes remaining space beside the fixed-size profile column */
-  .container.about-section .about-card {
-    /* leave room for larger profile column (adjust calc to profile + gap) */
-    flex: 1 1 calc(100% - 460px); /* leave ~440px for profile + gap */
-    max-width: calc(100% - 460px);
-    width: auto;
-    padding-right: 24px;
-  }
-
-  /* profile column stays fixed width so it won't push below the about-card */
-  .container.about-section .profile-pic {
-    /* larger fixed column for bigger profile without breaking layout */
-    flex: 0 0 420px;      /* increase this to make the profile bigger */
-    max-width: 420px;
-    margin-left: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-
-    /* faded white at the top that becomes transparent toward the bottom (kept) */
-    background: linear-gradient(
-      to bottom,
-      rgba(255,255,255,0.95) 0%,
-      rgba(255,255,255,0.85) 12%,
-      rgba(255,255,255,0.6) 28%,
-      rgba(255,255,255,0) 70%
-    );
-    padding: 8px;        /* small padding so white area stays tight */
-    border-radius: 12px;
-    box-shadow: none;    /* no shadow as requested */
-  }
-
-  /* keep the image large but contained inside the faded card */
-  .container.about-section .profile-pic img {
-    width: 100%;
-    height: auto;
-    max-height: 820px;   /* larger max height for bigger profile */
-    border-radius: 8px;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* responsive: allow wrapping and reduce column on smaller screens */
-  @media (max-width: 900px) {
-    .container.about-section {
-      flex-wrap: wrap;
-    }
-    .container.about-section .about-card,
-    .container.about-section .profile-pic {
-      flex: 1 1 100%;
-      max-width: 100%;
-      margin-left: 0;
-    }
-    .container.about-section .profile-pic {
-      order: 2; /* put profile under the about card on small screens */
-      flex: 0 0 320px;
-      max-width: 320px;
-    }
-    .container.about-section .profile-pic img {
-      max-height: 520px;
-    }
-
-    body {
-      padding-top: 120px; /* reduce top padding to fit top bar */
-      background-position:
-        center 100px,    /* move gradient up slightly on smaller screens */
-        top center,
-        center calc(100% - 160px);
-      background-size:
-        100% 120vh,
-        100% 180px,
-        70% auto;
-    }
-
-    .container {
-      width: 95%;
-      gap: 32px;
-      margin: 30px auto 0 auto;
-    }
-
-    .card {
-      padding: 20px;
-      border-radius: 14px;
-      margin: 10px 0;
-    }
-
-    /* extra cards stack vertically */
-    .container.extra-cards .education-card,
-    .container.extra-cards .interests-card,
-    .container.extra-cards .contacts-card {
-      flex: 1 1 100%;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .container.extra-cards .interests-card {
-      margin-top: 20px; /* reduce big offset for narrow screens */
-    }
-
-    /* about section stacks; profile becomes narrower column */
-    .container.about-section {
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .container.about-section .about-card {
-      flex: 1 1 100%;
-      max-width: 100%;
-      padding-right: 0;
-    }
-    .container.about-section .profile-pic {
-      flex: 0 0 320px;
-      max-width: 320px;
-      margin-left: 0;
-      padding: 8px;
-      border-radius: 12px;
-    }
-    .container.about-section .profile-pic img {
-      max-height: 520px;
-    }
-
-    /* top-bar adjustments */
-    .top-bar {
-      padding: 12px 20px;
-      background-size: 250% 100%;
-    }
-    .top-bar .logo { font-size: 1.05rem; }
-    .top-bar nav a { margin-left: 12px; font-size: 0.95rem; }
-
-    /* content text adjustments */
-    .card p,
-    .card ul,
-    .card li {
-      font-size: 1rem;
-    }
-  }
-
-  /* Small phones */
-  @media (max-width: 480px) {
-    body {
-      padding-top: 100px;
-      background-position:
-        center 80px,
-        top center,
-        center calc(100% - 120px);
-      background-size:
-        100% 140vh,
-        100% 140px,
-        80% auto;
-    }
-
-    .container {
-      width: 98%;
-      gap: 18px;
-      margin: 20px auto 0 auto;
-    }
-
-    .card {
-      padding: 14px;
-      border-radius: 12px;
-    }
-
-    /* stack everything full width */
-    .container.extra-cards .education-card,
-    .container.extra-cards .interests-card,
-    .container.extra-cards .contacts-card {
-      flex: 1 1 100%;
-      width: 100%;
-    }
-
-    /* about section: profile placed below content and full width */
-    .container.about-section {
-      flex-wrap: wrap;
-    }
-    .container.about-section .about-card,
-    .container.about-section .profile-pic {
-      flex: 1 1 100%;
-      max-width: 100%;
-      margin-left: 0;
-    }
-    .container.about-section .profile-pic {
-      order: 2;
-      flex: 1 1 100%;
-      padding: 10px;
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.9) 0%,
-        rgba(255,255,255,0.6) 20%,
-        rgba(255,255,255,0) 80%
-      );
-    }
-    .container.about-section .profile-pic img {
-      max-height: 420px;
-      border-radius: 8px;
-    }
-
-    /* top-bar stacks logo + nav into two rows for small screens */
-    .top-bar {
-      padding: 10px 14px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .top-bar nav {
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      margin-top: 6px;
-    }
-    .top-bar nav a {
-      margin-left: 0;
-      font-size: 0.95rem;
-    }
-
-    /* reduce skill pill sizes */
-    .skills span {
-      padding: 6px 8px;
-      font-size: 0.85rem;
-    }
-
-    /* contacts card full width & readable */
-    .contacts-card {
-      background: none;
-      padding: 10px 8px;
-    }
-    .contacts-card .contacts {
-      width: 100%;
-    }
-  }
-
-  /* final touch: ensure no huge fixed offsets remain on mobile */
-  @media (max-width: 1200px) {
-    .container.extra-cards .interests-card {
-      margin-top: 40px; /* moderate offset for midsize screens */
-    }
-  }
-  @keyframes popUp {
-    0% { opacity: 0; transform: translateY(60px) scale(1.1); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes shiftColors {
-    0% { background-position: 30% 50%; }
-    50% { background-position: 70% 50%; }
-    100% { background-position: 30% 50%; }
-  }
-
-  /* responsive: reduce the offset on narrow screens so layout doesn't look odd */
-  @media (max-width: 900px) {
-    .container.extra-cards .interests-card {
-      margin-top: 16px;
-    }
-  }
-
-  .contacts-card p {
-    color: #000000;
-  }
-
-  /* Tie BACKGROUNDSTYLE2.png to the Interests card so it moves with it */
-  .container.extra-cards .interests-card {
-    position: relative;    /* establish positioning context */
-    isolation: isolate;    /* keep pseudo confined to this card's stacking context */
-    z-index: 1;            /* put the card above its pseudo-element */
-    overflow: visible;     /* allow the pseudo (which sits outside the card bounds) to show */
-  }
-
-  /* remove/disable the pseudo on the single card (was placing image above other elements) */
-  /*
-  .container.extra-cards .interests-card::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -80px;
-    width: 60%;
-    padding-bottom: 40%;
-    background-image: url("BACKGROUNDSTYLE2.png");
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: contain;
-    opacity: 0.95;
-    pointer-events: none;
-    z-index: 0;
-  }
-  */
-
-  /* Attach the image to the parent container and push it behind everything */
-  .container.extra-cards {
-    position: relative; /* positioning context for the pseudo */
-    z-index: 0;         /* ensure container sits above the pseudo which will be -1 */
-    overflow: visible;  /* allow larger pseudo to show outside container */
-  }
-
-  /* make BACKGROUNDSTYLE2 bigger and lift it up */
-  .container.extra-cards::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 400px;           /* push the image up (more negative = higher) */
-    width: 80%;               /* increase width to make it bigger */
-    padding-bottom: 50%;      /* increase height while keeping aspect ratio */
-    background-image: url("BACKGROUNDSTYLE2.png");
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: contain; /* preserve aspect ratio */
-    pointer-events: none;
-    opacity: 0.95;
-    z-index: -1;              /* keep it behind the cards and page content */
-  }
-
-
-
-
-
-
-
-
-
-  /* SECOND PAGE WOOHOOOOOOOO */
-  /*EDUCATION AND ACHIEVEMENT PAGES*/
-
-  /* Full-screen wrapper to center card */
-  .single-education-wrapper {
-    display: flex;
-    justify-content: left; /* center horizontally */
-    align-items: center;     /* center vertically */
-    min-height: 100vh;       /* full viewport height */
-    background-image:
-      linear-gradient(to bottom,
-        rgba(22,20,31,0) 0%,
-        rgba(22,20,31,1) 5%,
-        rgba(22,20,31,1) 80%,
-        rgba(22,20,31,0.95) 88%,
-        rgba(22,20,31)100%);
-  /* optional dark background */
-    padding: 100px;           /* small padding for mobile */
-  }
-
-  /* Single card styling */
-  .single-education-card {
-    width: 100%;
-    max-width: 900px;        /* card max width */
-    padding: 40px;
-    border-radius: 20px;
-    background: rgba(22,20,31,0.95);
-    box-shadow: 0 0 30px rgba(255,0,55,0.2);
-  }
-
-  /* Mobile responsiveness */
-  @media (max-width: 720px) {
-    .single-education-card {
-      width: 95%;
-      padding: 20px;
-    }
-  }
-
-  /* --- Modern Education Sections --- */
-
-  .edu-entry {
+    border: 1px solid rgba(255,255,255,0.1);
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    padding: 22px;
-    border-radius: 14px;
-    margin: 22px 0;
-    backdrop-filter: blur(8px);
-    transition: 0.25s ease;
-  }
+    width: 100%;
+    max-width: 850px; /* centered inside card */
+    margin: 0 auto;
+}
 
-  .edu-entry:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(255, 0, 78, 0.25);
-  }
+.edu-entry img,
+.extra-entry img,
+.logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 8px;
+    padding: 6px;
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+}
 
-  .edu-entry h3 {
-    margin-bottom: 6px;
-    font-size: 1.25rem;
-    color: #fff;
-  }
+/* ==========================
+   FAMILY
+========================== */
+.family-page-wrapper { display: flex; flex-direction: column; align-items: center; padding: 50px 20px 30px; gap: 20px; width: 100%; }
 
-  .meta {
-    color: #bbb;
-    font-size: 0.9rem;
-    margin-bottom: 12px;
-  }
+.family-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; width: 100%; }
 
-  .extra-section {
-    margin: 26px 0;
-  }
+.family-card { display: flex; flex-direction: column; align-items: center; width: 250px; padding: 18px; border-radius: 12px; background: rgba(22,20,31,0.9); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 0 12px rgba(255,0,55,0.15); }
 
-  .back-link {
-    margin-top: 30px;
-  }
+.family-card img { width: 100%; max-width: 200px; border-radius: 8px; object-fit: cover; display: block; margin: 0 auto; }
 
-  .back-link a {
-    color: #9bd3ff;
-    text-decoration: none;
-  }
-
-  .back-link a:hover {
-    text-decoration: underline;
-  }
- /* --- SINGLE EDUCATION PAGE FIX --- */
-
-/* Wrapper: pushes card to top, left-aligned, full viewport height */
-.single-education-wrapper {
+/* ==========================
+   FLOATING BUTTONS
+========================== */
+.floating-btns-wrapper {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: flex-start; /* left align */
-  align-items: flex-start;     /* push card to top */
-  min-height: 100vh;
-  padding: 40px 40px;          /* small top/side padding */
-  background: linear-gradient(to bottom,
-      rgba(22,20,31,0) 0%,
-      rgba(22,20,31,1) 5%,
-      rgba(22,20,31,1) 80%,
-      rgba(22,20,31,0.95) 88%,
-      rgba(22,20,31,1) 100%);
+  gap: 16px;
+  z-index: 9999;
 }
 
-/* Card: centered horizontally, max width */
-.single-education-card {
-  width: 75%;
-  max-width: 1100px;
-  margin: 0 auto;             /* horizontal center */
-  padding: 40px;
-  border-radius: 20px;
-  background: rgba(22,20,31,0.95);
-  box-shadow: 0 0 30px rgba(255,0,55,0.2);
-}
-
-/* Adjust text size for all elements inside card */
-.single-education-card,
-.single-education-card p,
-.single-education-card ul,
-.single-education-card li,
-.single-education-card h3,
-.single-education-card .meta {
-  font-size: 0.9rem;  /* slightly smaller */
-  line-height: 1.5;
-}
-
-/* Headers slightly smaller */
-.single-education-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 6px;
+.floating-btn, .prev-btn, .next-btn {
+  padding: 14px 22px;
+  background: #ff1160;
   color: #fff;
-}
-
-/* Meta info styling */
-.single-education-card .meta {
-  color: #bbb;
-  font-size: 0.9rem;
-  margin-bottom: 12px;
-}
-
-/* List inside card */
-.single-education-card ul {
-  margin: 8px 0 8px 28px;  /* indent bullets */
-  padding-left: 10px;
-  list-style-position: outside;
-}
-
-.single-education-card li {
-  margin-bottom: 4px;
-  line-height: 1.6;
-}
-
-/* Individual education entry */
-.edu-entry {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 22px;
-  border-radius: 14px;
-  margin: 22px 0;
-  backdrop-filter: blur(8px);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 28px;
+  box-shadow: 0 6px 14px rgba(255,17,96,0.35);
+  backdrop-filter: blur(6px);
+  text-align: center;
+  width: max-content;
   transition: 0.25s ease;
 }
 
-.edu-entry:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(255, 0, 78, 0.25);
+.floating-btn:hover, .prev-btn:hover, .next-btn:hover {
+  background: #ff2a78;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(255,17,96,0.45);
 }
 
-/* Responsive: smaller screens */
-@media (max-width: 720px) {
-  .single-education-wrapper {
-    padding: 20px;
-  }
+/* ==========================
+   RESPONSIVE
+========================== */
+@media (max-width: 900px) {
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1rem; }
+  body, p, li, .edu-entry, .extra-entry, .interests-card { font-size: 0.95rem; padding: 12px; }
+}
 
-  .single-education-card {
-    width: 95%;
-    padding: 20px;
-  }
+@media (max-width: 480px) {
+  h1 { font-size: 1.4rem; }
+  h2 { font-size: 1.1rem; }
+  h3 { font-size: 0.95rem; }
+  body, p, li, .edu-entry, .extra-entry, .interests-card { font-size: 0.85rem; padding: 10px; }
+  body { padding-top: 100px; }
+  .family-card { width: 90%; padding: 12px; }
+  .top-bar nav a { font-size: 0.8rem; }
+}
+ 
 
-  .single-education-card h3 {
+/* ==========================
+   EDUCATION WRAPPER – FIXED LOWERED
+========================== */
+#education-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh; /* ensures full screen height */
+    padding: 100px 20px 40px; /* top padding from nav bar */
+    margin-top: 400px; /* pushes section down further */
+    gap: 20px;
+}
+
+/* Cards inside Education */
+#education-card,
+#single-education-card {
+    width: 100%;
+    max-width: 1000px;
+    max-height: none;
+    overflow: visible;
+}
+
+/* ==========================
+   EXTRA-CURRICULAR WRAPPER – FIXED LOWERED
+========================== */
+#extra-curricular-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 100px 20px 40px;
+    margin-top: 400px; /* pushes section down */
+    gap: 20px;
+}
+
+/* Cards inside Extra-Curricular */
+#extra-curricular-card {
+    width: 100%;
+    max-width: 1000px;
+    max-height: none;
+    overflow: visible;
+}
+
+/* ==========================
+   EDUCATION WRAPPER – FIXED LOWERED
+========================== */
+#education-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh; /* ensures full screen height */
+    padding: 100px 20px 40px; /* top padding from nav bar */
+    margin-top: 400px; /* pushes section down further */
+    gap: 20px;
+}
+
+/* Cards inside Education */
+#education-card,
+#single-education-card {
+    width: 100%;
+    max-height: none;
+    overflow: visible;
+}
+
+/* ==========================
+   EXTRA-CURRICULAR WRAPPER – FIXED LOWERED
+========================== */
+#extra-curricular-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 100px 20px 40px;
+    margin-top: 400px; /* pushes section down */
+    gap: 20px;
+}
+
+/* Cards inside Extra-Curricular */
+#extra-curricular-card {
+    width: 100%;
+    max-width: 1000px;
+    max-height: none;
+    overflow: visible;
+}
+ /* ==========================
+   EXTRA-CURRICULAR ENTRIES – FIXED STACK
+========================== */
+.extra-entry {
+    display: flex;
+    flex-direction: column; /* stack title + description vertically */
+    align-items: flex-start; /* left align text */
+    gap: 6px; /* space between title and description */
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(22,20,31,0.9);
+    opacity: 0;
+    animation: popUp 1.2s ease forwards 0.3s;
+    transition: 0.25s;
+}
+
+/* Title and description styling */
+.extra-entry h3 {
+    margin-bottom: 4px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.extra-entry p, .extra-entry li {
     font-size: 1rem;
-  }
-
-  .single-education-card ul {
-    margin-left: 20px;
-  }
+    line-height: 1.2;
 }
 
-/* FORCE readable font on all cards */
-.card, 
-.card p, 
-.card ul, 
-.card li, 
-.education-card .edu-main ul li, 
-.about-card .about {
-    font-size: 1.2rem !important; /* readable minimum */
-    line-height: 1.6 !important;
+/* Hover effect */
+.extra-entry:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255,0,78,0.2);
 }
 
-/* Single-education page */
-.single-education-card,
-.single-education-card p,
-.single-education-card ul,
-.single-education-card li,
-.single-education-card h3,
-.single-education-card .meta {
-    font-size: 1.1rem !important;
-    line-height: 1.6 !important;
+/* FORCE EDUCATION LOWER */
+#education-wrapper {
+    padding-top: 400px !important;
+}
+
+/* FORCE EXTRA-CURRICULAR LOWER */
+#extra-curricular-wrapper {
+    padding-top: 400px !important;
+}
+
+/* Push down main section headings */
+#education-card h2,
+#extra-curricular-card h2 {
+    margin-top: 40px;  /* adjust this value as needed */
 }
